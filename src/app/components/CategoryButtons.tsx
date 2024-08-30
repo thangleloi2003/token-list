@@ -1,5 +1,5 @@
 'use client'
-import Image from 'next/image';
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { Button, Skeleton } from '@nextui-org/react';
 import axios from 'axios';
@@ -84,7 +84,7 @@ const CategoryButtons: React.FC = () => {
         if (selectedCategory) {
             fetchTokens(selectedCategory);
         }
-    }, [selectedCategory, fetchTokens]);
+    }, [selectedCategory]);
 
     useEffect(() => {
         if (category !== selectedCategory) {
@@ -93,7 +93,7 @@ const CategoryButtons: React.FC = () => {
         if (searchQuery !== searchInput) {
             setSearchInput(searchQuery || '');
         }
-    }, [category, searchQuery, selectedCategory, searchInput]);
+    }, [category, searchQuery]);
 
     const handleCategoryChange = (category: string) => {
         setSelectedCategory(category);
@@ -109,7 +109,7 @@ const CategoryButtons: React.FC = () => {
     const debouncedSearchChange = useCallback(debounce((value: string) => {
         setSearchInput(value);
         router.push(`/?category=${selectedCategory}&searchQuery=${value}`);
-    }, 0), [selectedCategory, router]);
+    }, 300), [selectedCategory, router]);
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         debouncedSearchChange(event.target.value);
@@ -132,7 +132,7 @@ const CategoryButtons: React.FC = () => {
             <div style={style} className="flex flex-wrap justify-center gap-[18px] xl:gap-[22px]">
                 {filteredTokens.slice(tokenIndex, tokenIndex + tokensPerRow).map((token, idx) => (
                     <div key={idx} className="w-24 h-24 relative overflow-hidden cursor-pointer transition-transform duration-700 ease-in-out hover:scale-110 hover:shadow-lg rounded-[50%] bg-[#f0f0f0] border border-[#cccccc]">
-                        <Image src={token.logoURI} alt={`Token ${idx + 1}`} className="w-full h-full object-cover" onError={handleTokenError} />
+                        <img src={token.logoURI} alt={`Token ${idx + 1}`} className="w-full h-full object-cover" onError={handleTokenError} />
                     </div>
                 ))}
             </div>
@@ -146,7 +146,7 @@ const CategoryButtons: React.FC = () => {
             </div>
 
             <div className="flex justify-center">
-                <input type="text" placeholder="Search..." className="rounded min-w-fit w-[369px] bg-gray-100" 
+                <input type="text" placeholder="Search..." className="rounded min-w-fit w-[369px]" 
                 value={searchInput} onChange={handleSearchChange} />
                 <Button className="min-w-fit w-16 h-10 rounded-e-lg cursor-pointer bg-[#051c33]" disabled>
                     <svg height="32" width="32">
@@ -161,7 +161,7 @@ const CategoryButtons: React.FC = () => {
 
             <div className="flex flex-wrap justify-center m-[40px] gap-5 sm:gap-3">
                 {serverCategories.map((category) => (
-                    <Button key={category} className={`w-[150px] h-[28px] px-4 rounded text-[16px] ${selectedCategory === category ? 'bg-zinc-500' : 'bg-[#051C33]'} text-white`} 
+                    <Button key={category} className={`w-[125px] h-[28px] px-4 rounded text-[16px] ${selectedCategory === category ? 'bg-[#033e8c]' : 'bg-[#051C33]'} text-white`} 
                         onClick={() => handleCategoryChange(category)}>
                         {category}
                     </Button>
@@ -183,9 +183,9 @@ const CategoryButtons: React.FC = () => {
                     <p className="text-center">No tokens available for this category.</p>
                 ) : (
                     <List
-                        height={355} 
-                        itemCount={Math.ceil(filteredTokens.length / 10)} 
-                        itemSize={130}
+                        height={355} // Hiển thị vừa đủ 2 hàng
+                        itemCount={Math.ceil(filteredTokens.length / 10)} // Số lượng hàng
+                        itemSize={130}  // Chiều cao cố định của mỗi hàng
                         width="100%"
                     >
                         {Row}
