@@ -161,7 +161,7 @@ const CategoryButtons: React.FC = () => {
 
             <div className="flex flex-wrap justify-center m-[40px] gap-5 sm:gap-3">
                 {serverCategories.map((category) => (
-                    <Button key={category} className={`w-[125px] h-[28px] px-4 rounded text-[16px] ${selectedCategory === category ? 'bg-[#033e8c]' : 'bg-[#051C33]'} text-white`} 
+                    <Button key={category} className={`w-[150px] h-[28px] px-4 rounded text-[16px] ${selectedCategory === category ? 'bg-[#033e8c]' : 'bg-[#051C33]'} text-white`} 
                         onClick={() => handleCategoryChange(category)}>
                         {category}
                     </Button>
@@ -183,9 +183,9 @@ const CategoryButtons: React.FC = () => {
                     <p className="text-center">No tokens available for this category.</p>
                 ) : (
                     <List
-                        height={355} // Hiển thị vừa đủ 2 hàng
-                        itemCount={Math.ceil(filteredTokens.length / 10)} // Số lượng hàng
-                        itemSize={130}  // Chiều cao cố định của mỗi hàng
+                        height={355} 
+                        itemCount={Math.ceil(filteredTokens.length / 10)} 
+                        itemSize={130}
                         width="100%"
                     >
                         {Row}
