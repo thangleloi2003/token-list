@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { Button, Skeleton } from '@nextui-org/react';
@@ -125,7 +125,7 @@ const CategoryButtons: React.FC = () => {
     };
 
     const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => {
-        const tokensPerRow = 10;  
+        const tokensPerRow = 10;
         const tokenIndex = index * tokensPerRow;
 
         return (
@@ -146,8 +146,8 @@ const CategoryButtons: React.FC = () => {
             </div>
 
             <div className="flex justify-center">
-                <input type="text" placeholder="Search..." className="rounded min-w-fit w-[369px]" 
-                value={searchInput} onChange={handleSearchChange} />
+                <input type="text" placeholder="Search..." className="rounded min-w-fit w-[369px] bg-gray-100"
+                    value={searchInput} onChange={handleSearchChange} />
                 <Button className="min-w-fit w-16 h-10 rounded-e-lg cursor-pointer bg-[#051c33]" disabled>
                     <svg height="32" width="32">
                         <path
@@ -161,7 +161,7 @@ const CategoryButtons: React.FC = () => {
 
             <div className="flex flex-wrap justify-center m-[40px] gap-5 sm:gap-3">
                 {serverCategories.map((category) => (
-                    <Button key={category} className={`w-[150px] h-[28px] px-4 rounded text-[16px] ${selectedCategory === category ? 'bg-[#033e8c]' : 'bg-[#051C33]'} text-white`} 
+                    <Button key={category} className={`w-[150px] h-[28px] px-4 rounded text-[16px] ${selectedCategory === category ? 'bg-zinc-500' : 'bg-[#051C33]'} text-white`}
                         onClick={() => handleCategoryChange(category)}>
                         {category}
                     </Button>
@@ -183,8 +183,8 @@ const CategoryButtons: React.FC = () => {
                     <p className="text-center">No tokens available for this category.</p>
                 ) : (
                     <List
-                        height={355} 
-                        itemCount={Math.ceil(filteredTokens.length / 10)} 
+                        height={355}
+                        itemCount={Math.ceil(filteredTokens.length / 10)}
                         itemSize={130}
                         width="100%"
                     >
