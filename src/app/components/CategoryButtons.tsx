@@ -1,5 +1,5 @@
 'use client'
-
+import Image from 'next/image';
 import React, { useState, useEffect, useCallback } from 'react';
 import { Button, Skeleton } from '@nextui-org/react';
 import axios from 'axios';
@@ -84,7 +84,7 @@ const CategoryButtons: React.FC = () => {
         if (selectedCategory) {
             fetchTokens(selectedCategory);
         }
-    }, [selectedCategory]);
+    }, [selectedCategory, fetchTokens]);
 
     useEffect(() => {
         if (category !== selectedCategory) {
@@ -93,7 +93,7 @@ const CategoryButtons: React.FC = () => {
         if (searchQuery !== searchInput) {
             setSearchInput(searchQuery || '');
         }
-    }, [category, searchQuery]);
+    }, [category, searchQuery, selectedCategory, searchInput]);
 
     const handleCategoryChange = (category: string) => {
         setSelectedCategory(category);
@@ -132,7 +132,7 @@ const CategoryButtons: React.FC = () => {
             <div style={style} className="flex flex-wrap justify-center gap-[18px] xl:gap-[22px]">
                 {filteredTokens.slice(tokenIndex, tokenIndex + tokensPerRow).map((token, idx) => (
                     <div key={idx} className="w-24 h-24 relative overflow-hidden cursor-pointer transition-transform duration-700 ease-in-out hover:scale-110 hover:shadow-lg rounded-[50%] bg-[#f0f0f0] border border-[#cccccc]">
-                        <img src={token.logoURI} alt={`Token ${idx + 1}`} className="w-full h-full object-cover" onError={handleTokenError} />
+                        <Image src={token.logoURI} alt={`Token ${idx + 1}`} className="w-full h-full object-cover" onError={handleTokenError} />
                     </div>
                 ))}
             </div>

@@ -6,7 +6,9 @@ export default function RootLayout() {
   return (
     <html lang="en">
       <body>
-        <CategoryButtons />
+        <React.Suspense fallback={<div>Loading...</div>}>
+          <CategoryButtons />
+        </React.Suspense>
       </body>
     </html>
   );
