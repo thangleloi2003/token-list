@@ -109,7 +109,7 @@ const CategoryButtons: React.FC = () => {
     const debouncedSearchChange = useCallback(debounce((value: string) => {
         setSearchInput(value);
         router.push(`/?category=${selectedCategory}&searchQuery=${value}`);
-    }, 300), [selectedCategory, router]);
+    }, 0), [selectedCategory, router]);
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         debouncedSearchChange(event.target.value);
@@ -125,7 +125,7 @@ const CategoryButtons: React.FC = () => {
     };
 
     const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => {
-        const tokensPerRow = 10;
+        const tokensPerRow = 10;  
         const tokenIndex = index * tokensPerRow;
 
         return (
@@ -146,8 +146,8 @@ const CategoryButtons: React.FC = () => {
             </div>
 
             <div className="flex justify-center">
-                <input type="text" placeholder="Search..." className="rounded min-w-fit w-[369px] bg-gray-100"
-                    value={searchInput} onChange={handleSearchChange} />
+                <input type="text" placeholder="Search..." className="rounded min-w-fit w-[369px] bg-gray-100" 
+                value={searchInput} onChange={handleSearchChange} />
                 <Button className="min-w-fit w-16 h-10 rounded-e-lg cursor-pointer bg-[#051c33]" disabled>
                     <svg height="32" width="32">
                         <path
@@ -161,7 +161,7 @@ const CategoryButtons: React.FC = () => {
 
             <div className="flex flex-wrap justify-center m-[40px] gap-5 sm:gap-3">
                 {serverCategories.map((category) => (
-                    <Button key={category} className={`w-[150px] h-[28px] px-4 rounded text-[16px] ${selectedCategory === category ? 'bg-zinc-500' : 'bg-[#051C33]'} text-white`}
+                    <Button key={category} className={`w-[150px] h-[28px] px-4 rounded text-[16px] ${selectedCategory === category ? 'bg-zinc-500' : 'bg-[#051C33]'} text-white`} 
                         onClick={() => handleCategoryChange(category)}>
                         {category}
                     </Button>
@@ -172,24 +172,17 @@ const CategoryButtons: React.FC = () => {
                 <h2 className="text-center text-[32px] text-[#051c33] font-semibold mt-[52px] mx-0 mb-8">
                     {selectedCategory} token library
                 </h2>
-
-                {loading ? (
-                    <div className="flex flex-wrap justify-center gap-10">
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <Skeleton key={index} className="w-24 h-24 rounded-[50%]" />
-                        ))}
-                    </div>
-                ) : filteredTokens.length === 0 ? (
-                    <p className="text-center">No tokens available for this category.</p>
-                ) : (
-                    <List
-                        height={355}
-                        itemCount={Math.ceil(filteredTokens.length / 10)}
-                        itemSize={130}
-                        width="100%"
-                    >
-                        {Row}
-                    </List>
+                <div className="flex justify-center">
+                    {loading ? (
+                        <Skeleton className="w-full h-24" />
+                    ) : (
+                        <List height={800} itemCount={Math.ceil(filteredTokens.length / 10)} itemSize={100} width={1200}>
+                            {Row}
+                        </List>
+                    )}
+                </div>
+                {filteredTokens.length === 0 && !loading && (
+                    <p className="text-center text-[20px] text-[#051c33] mt-8">No tokens available for this category.</p>
                 )}
             </div>
         </div>
